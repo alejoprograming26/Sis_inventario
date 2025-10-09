@@ -1,0 +1,12 @@
+table categorias{
+    id int [pk, increment]
+    nombre varchar(255)
+    descripcion text
+}
+table sucursales{
+    id int [pk, increment]
+    nombre varchar(255)
+    direccion text
+    telefono varchar(20)
+    activo boolean [default: true]
+}
