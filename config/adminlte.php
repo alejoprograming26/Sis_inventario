@@ -321,6 +321,13 @@ return [
             'classes' => 'bg-orange text-white',
 
         ],
+        [
+            'text' => 'Productos',
+            'url' => 'admin/productos',
+            'icon' => 'fas fa-fw fa-box-open',
+            'classes' => 'bg-orange text-white',
+
+        ],
 
     ],
 

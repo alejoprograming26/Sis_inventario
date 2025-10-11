@@ -10,3 +10,17 @@ table sucursales{
     telefono varchar(20)
     activo boolean [default: true]
 }
+table productos{
+    id int [pk, increment]
+    categoria_id int [ref: > categorias.id]
+    codigo varchar(100) [unique]
+    nombre varchar(255)
+    imagen varchar(255)
+    descripcion text
+    precio_compra decimal(10,2)
+    precio_venta decimal(10,2)
+    stock_minimo int
+    stock_maximo int
+    unidad_medida varchar(50)
+    estado boolean [default: true]
+}

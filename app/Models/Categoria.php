@@ -16,4 +16,9 @@ class Categoria extends Model
         'nombre',
         'descripcion',
     ];
+
+    // Una categoria tiene muchos productos
+    public function productos() {
+        return $this->hasMany(Producto::class);
+    }
 }
