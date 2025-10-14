@@ -1,0 +1,435 @@
+@extends('adminlte::page')
+
+@section('content_header')
+    <nav aria-label="breadcrumb" style="font-size: 18pt">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url('admin') }}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ url('admin/productos') }}">Productos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Creacion de Productos</li>
+        </ol>
+    </nav>
+    <hr>
+
+@stop
+@section('content')
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-orange">
+                <div class="card-header">
+                    <h1 class="card-title"><b>Llene los Campos</b></h1>
+                </div>
+                <div class="card-body" style="display: block;">
+                    <form action="{{ url('admin/productos/create') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="nombre">Categoria <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                </div>
+                                                <select name="categoria_id" id="categoria_id" class="form-control" required>
+                                                    <option value="">Seleccione una categoria</option>
+                                                    @foreach ($categorias as $categoria)
+                                                        <option value="{{ $categoria->id }}">{{ $categoria->nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            @error('categoria_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="codigo">Codigo <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-barcode"></i></span>
+                                                </div>
+                                                <input type="text" value="{{ old('codigo') }}" class="form-control"
+                                                    id="codigo" name="codigo"
+                                                    placeholder="Ingrese el codigo del producto" required>
+                                            </div>
+                                            @error('codigo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-box"></i></span>
+                                                </div>
+                                                <input type="text" value="{{ old('nombre') }}" class="form-control"
+                                                    id="nombre" name="nombre"
+                                                    placeholder="Ingrese el nombre del producto" required>
+                                            </div>
+                                            @error('nombre')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="descripcion">Descripcion <b>(*)</b></label>
+                                            <div class="editor-wrapper">
+                                                <textarea id="descripcion" name="descripcion" required></textarea>
+                                            </div>
+                                            @error('descripcion')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="precio_compra">Precio Compra <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                                </div>
+                                                <input style="text-align: center;" type="number"
+                                                    value="{{ old('precio_compra') }}" class="form-control"
+                                                    id="precio_compra" name="precio_compra"
+                                                    placeholder="Ingrese el precio de compra del producto" required>
+                                            </div>
+                                            @error('precio_compra')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="precio_venta">Precio Venta <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-money-bill-wave"></i></span>
+                                                </div>
+                                                <input style="text-align: center;" type="number"
+                                                    value="{{ old('precio_venta') }}" class="form-control"
+                                                    id="precio_venta" name="precio_venta"
+                                                    placeholder="Ingrese el precio de venta del producto" required>
+                                            </div>
+                                            @error('precio_venta')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="stock_minimo">Stock Minimo <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-arrow-down"></i></span>
+                                                </div>
+                                                <input type="number" value="{{ old('stock_minimo') }}"
+                                                    class="form-control" id="stock_minimo" name="stock_minimo"
+                                                    placeholder="Ingrese el stock mínimo del producto" required>
+                                            </div>
+                                            @error('stock_minimo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="stock_maximo">Stock Maximo <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-arrow-up"></i></span>
+                                                </div>
+                                                <input type="number" value="{{ old('stock_maximo') }}"
+                                                    class="form-control" id="stock_maximo" name="stock_maximo"
+                                                    placeholder="Ingrese el stock máximo del producto" required>
+                                            </div>
+                                            @error('stock_maximo')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="unidad_medida">Unidad Medida <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i
+                                                            class="fas fa-balance-scale"></i></span>
+                                                </div>
+                                                <select class="form-control" id="unidad_medida" name="unidad_medida"
+                                                    required>
+                                                    <option value="" disabled
+                                                        {{ old('unidad_medida') ? '' : 'selected' }}>Seleccione una opción
+                                                    </option>
+                                                    <option value="unidad"
+                                                        {{ old('unidad_medida') == 'unidad' ? 'selected' : '' }}>Unidad
+                                                    </option>
+                                                    <option value="kilogramo"
+                                                        {{ old('unidad_medida') == 'kilogramo' ? 'selected' : '' }}>
+                                                        Kilogramo</option>
+                                                    <option value="litro"
+                                                        {{ old('unidad_medida') == 'litro' ? 'selected' : '' }}>Litro
+                                                    </option>
+                                                    <option value="Paquete"
+                                                        {{ old('unidad_medida') == 'Paquete' ? 'selected' : '' }}>Paquete
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            @error('unidad_medida')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="estado">Estado <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+                                                </div>
+                                                <select class="form-control" id="estado" name="estado" required>
+                                                    <option value="" disabled selected>Seleccione una opción</option>
+                                                    <option value="1" {{ old('estado') == '1' ? 'selected' : '' }}>
+                                                        Activo
+                                                    </option>
+                                                    <option value="0" {{ old('estado') == '0' ? 'selected' : '' }}>
+                                                        Inactivo
+                                                    </option>
+                                                </select>
+                                                @error('estado')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="imagen">Imagen del producto <b style="color: red">(*)</b></label>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-image"></i></span>
+                                        </div>
+                                        <input type="file" class="form-control" id="imagen" name="imagen"
+                                            accept="image/*" onchange="previewImage(event)" required>
+                                    </div>
+                                    <br>
+                                    <img id="imgPreview" src="#" width="100%" alt="Vista previa de la imagen"
+                                        style="display:none;" />
+                                    <script>
+                                        function previewImage(event) {
+                                            const input = event.target;
+                                            const file = input.files[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onload = function(e) {
+                                                    const imgPreview = document.getElementById("imgPreview");
+                                                    imgPreview.src = e.target.result;
+                                                    imgPreview.style.display = 'block';
+                                                }
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }
+                                    </script>
+                                    @error('imagen')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group text-right">
+                            <a href="{{ url('admin/sucursales') }}" class="btn btn-secondary ">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    @stop
+
+    @section('css')
+        <style>
+            /* Fondo transparente y sin borde en el contenedor */
+            #example1_wrapper .dt-buttons {
+                background-color: transparent;
+                box-shadow: none;
+                border: none;
+                display: flex;
+                justify-content: center;
+                /* Centrar los botones */
+                gap: 15px;
+                /* Espaciado entre botones */
+                margin-bottom: 15px;
+                /* Separar botones de la tabla */
+            }
+
+            /* Estilo personalizado para los botones */
+            #example1_wrapper .btn {
+                color: #fff;
+                /* Color del texto en blanco */
+                border-radius: 4px;
+                /* Bordes redondeados */
+                padding: 5px 15px;
+                /* Espaciado interno */
+                font-size: 14px;
+                /* Tamaño de fuente */
+            }
+
+            /* Colores por tipo de botón */
+            .btn-danger {
+                background-color: #dc3545;
+                border: none;
+            }
+
+            .btn-success {
+                background-color: #28a745;
+                border: none;
+            }
+
+            .btn-info {
+                background-color: #17a2b8;
+                border: none;
+            }
+
+            .btn-warning {
+                background-color: #ffc107;
+                color: #212529;
+                border: none;
+            }
+
+            .btn-default {
+                background-color: #6c7176;
+                color: #212529;
+                border: none;
+            }
+        </style>
+        <style>
+            .ck.ck-editor {
+                width: 100% !important;
+            }
+
+            .ck-editor__editable {
+                width: 100% !important;
+                min-height: 300px;
+                box-sizing: border-box;
+            }
+
+            .ck.ck-toolbar {
+                flex-wrap: wrap;
+            }
+
+            @media (max-width: 768px) {
+                .ck-editor__editable {
+                    min-height: 250px;
+                    padding: 10px;
+                }
+            }
+        </style>
+    @stop
+
+    @section('js')
+        <script>
+            $(function() {
+                $("#example1").DataTable({
+                    "pageLength": 10,
+                    "language": {
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando _START_ a _END_ de _TOTAL_ Categorias",
+                        "infoEmpty": "Mostrando 0 a 0 de 0 Categorias",
+                        "infoFiltered": "(Filtrado de _MAX_ total Categorias",
+                        "lengthMenu": "Mostrar _MENU_ Categorias",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "Buscador",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "paginate": {
+                            "first": "Primero",
+                            "last": "Último",
+                            "next": "Siguiente",
+                            "previous": "Anterior"
+                        }
+                    },
+                    "responsive": true,
+                    "lengthChange": true,
+                    "autoWidth": false,
+                    buttons: [{
+                            text: '<i class="fas fa-copy"></i> COPIAR',
+                            extend: 'copy',
+                            className: 'btn btn-default'
+                        },
+                        {
+                            text: '<i class="fas fa-file-pdf"></i> PDF',
+                            extend: 'pdf',
+                            className: 'btn btn-danger'
+                        },
+                        {
+                            text: '<i class="fas fa-file-csv"></i> CSV',
+                            extend: 'csv',
+                            className: 'btn btn-info'
+                        },
+                        {
+                            text: '<i class="fas fa-file-excel"></i> EXCEL',
+                            extend: 'excel',
+                            className: 'btn btn-success'
+                        },
+                        {
+                            text: '<i class="fas fa-print"></i> IMPRIMIR',
+                            extend: 'print',
+                            className: 'btn btn-warning'
+                        }
+                    ]
+                }).buttons().container().appendTo('#example1_wrapper .row:eq(0)');
+            });
+        </script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+        <script>
+            ClassicEditor
+                .create(document.querySelector('#descripcion'), {
+                    toolbar: {
+                        items: [
+                            'heading', '|',
+                            'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
+                            'link', 'bulletedList', 'numberedList', '|',
+                            'outdent', 'indent', '|',
+                            'alignment', '|',
+                            'blockQuote', 'insertTable', 'mediaEmbed', '|',
+                            'undo', 'redo', '|',
+                            'fontBackgroundColor', 'fontColor', 'fontSize', 'fontFamily', '|',
+                            'code', 'codeBlock', 'htmlEmbed', '|',
+                            'sourceEditing'
+                        ],
+                        shouldNotGroupWhenFull: true
+                    },
+                    language: 'es'
+                })
+                .then(editor => {
+                    // Forzar responsive después de crear el editor
+                    const editorEl = editor.ui.view.element;
+                    editorEl.style.width = '100%';
+                    editorEl.querySelector('.ck-editor__editable').style.width = '100%';
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        </script>
+
+    @stop
