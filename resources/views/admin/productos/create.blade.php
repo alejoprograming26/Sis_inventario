@@ -18,7 +18,7 @@
                 <div class="card-header">
                     <h1 class="card-title"><b>Llene los Campos</b></h1>
                 </div>
-                <div class="card-body" style="display: block;">
+                <div class="card-body">
                     <form action="{{ url('admin/productos/create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -82,7 +82,7 @@
                                         <div class="form-group">
                                             <label for="descripcion">Descripcion <b>(*)</b></label>
                                             <div class="editor-wrapper">
-                                                <textarea id="descripcion" name="descripcion" required></textarea>
+                                                <textarea id="descripcion" name="descripcion"></textarea>
                                             </div>
                                             @error('descripcion')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -251,12 +251,11 @@
                         </div>
                         <hr>
                         <div class="form-group text-right">
-                            <a href="{{ url('admin/sucursales') }}" class="btn btn-secondary ">
+                            <a href="{{ url('admin/productos') }}" class="btn btn-secondary ">
                                 <i class="fas fa-arrow-left"></i> Volver
                             </a>
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save"></i> Guardar
-                            </button>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-save"></i>
+                                Guardar</button>
                         </div>
                     </form>
                 </div>

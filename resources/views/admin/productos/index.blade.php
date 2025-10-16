@@ -72,14 +72,14 @@
                                     </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                            <a href="{{ url('admin/sucursales/' . $producto->id) }}" type="button"
+                                            <a href="{{ url('admin/productos/' . $producto->id) }}" type="button"
                                                 class="btn btn-info">
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
-                                            <a href="{{ url('admin/sucursales/' . $producto->id . '/edit') }}"
+                                            <a href="{{ url('admin/productos/' . $producto->id . '/edit') }}"
                                                 type="button" class="btn btn-success"><i class="fas fa-edit"></i>
                                                 Editar</a>
-                                            <form action="{{ url('/admin/sucursales/' . $producto->id) }}"
+                                            <form action="{{ url('/admin/productos/' . $producto->id) }}"
                                                 id="miFormulario{{ $producto->id }}" method="post">
                                                 @csrf
                                                 @method('DELETE')

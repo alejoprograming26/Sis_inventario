@@ -33,7 +33,37 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return response()->json($request->all());
+        $request->validate([
+            'categoria_id' => 'required|exists:categorias,id',
+            'codigo' => 'required|unique:productos,codigo',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'precio_compra' => 'required|numeric',
+            'precio_venta' => 'required|numeric',
+            'stock_minimo' => 'required|integer',
+            'stock_maximo' => 'required|integer',
+            'unidad_medida' => 'required',
+            'estado' => 'required|boolean',
+
+        ]);
+        $producto = new Producto();
+        $producto->categoria_id = $request->categoria_id;
+        $producto->codigo = $request->codigo;
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->imagen = $request->file('imagen')->storage('imagenes/productos', 'public');
+        $producto->precio_compra = $request->precio_compra;
+        $producto->precio_venta = $request->precio_venta;
+        $producto->stock_minimo = $request->stock_minimo;
+        $producto->stock_maximo = $request->stock_maximo;
+        $producto->unidad_medida = $request->unidad_medida;
+        $producto->estado = $request->estado;
+        $producto->save();
+        return redirect()->route('admin.productos.index')
+        ->with('mensaje', 'Producto creado exitosamente')
+        ->with('icono', 'success');
     }
 
     /**

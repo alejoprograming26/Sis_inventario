@@ -110,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -312,6 +312,7 @@ return [
             'url' => 'admin/sucursales',
             'icon' => 'fas fa-fw fa-building',
             'classes' => 'bg-orange text-white',
+            'active' => ['admin/sucursale*'],
 
         ],
         [
@@ -319,6 +320,7 @@ return [
             'url' => 'admin/categorias',
             'icon' => 'fas fa-fw fa-list',
             'classes' => 'bg-orange text-white',
+            'active' => ['admin/categoria*'],
 
         ],
         [
@@ -326,6 +328,7 @@ return [
             'url' => 'admin/productos',
             'icon' => 'fas fa-fw fa-box-open',
             'classes' => 'bg-orange text-white',
+            'active' => ['admin/producto*'],
 
         ],
 
