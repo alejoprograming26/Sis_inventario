@@ -26,7 +26,7 @@ class ProductoFactory extends Factory
             'precio_venta' => $this->faker->randomFloat(2, 15, 150),
             'stock_minimo' => $this->faker->numberBetween(1, 5),
             'stock_maximo' => $this->faker->numberBetween(10, 20),
-            'unidad_medida' => $this->faker->randomElement(['kg', 'g', 'lt', 'ml', 'unidad']),
+            'unidad_medida' => $this->faker->randomElement(['kilogramo', 'litro', 'Paquete', 'unidad']),
             'estado' => $this->faker->randomElement(['1', '0']),
         ];
     }

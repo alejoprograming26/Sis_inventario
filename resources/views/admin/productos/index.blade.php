@@ -48,14 +48,11 @@
                                     <td>{{ $producto->categoria->nombre }}</td>
                                     <td>{{ $producto->codigo }}</td>
                                     <td>{{ $producto->nombre }}</td>
-                                    <td>{{ $producto->descripcion }}</td>
+                                    <td>{!! $producto->descripcion !!}</td>
                                     <td>
-                                        @if ($producto->imagen)
-                                            <img src="{{ asset('storage/' . $producto->imagen) }}"
-                                                alt="{{ $producto->nombre }}" width="100">
-                                        @else
-                                            <span class="badge badge-warning">Sin Imagen</span>
-                                        @endif
+                                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}"
+                                            class="img-thumbnail" width="100">
+
                                     </td>
                                     <td>{{ $producto->precio_compra }}</td>
                                     <td>{{ $producto->precio_venta }}</td>
