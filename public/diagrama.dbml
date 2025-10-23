@@ -24,3 +24,25 @@ table productos{
     unidad_medida varchar(50)
     estado boolean [default: true]
 }
+table proveedores{
+   id int [pk, increment]
+   empresa varchar
+   direccion varchar
+   contacto varchar
+   telefono varchar
+   email varchar
+
+
+}
+table lotes{
+
+    id int [pk, increment]
+    producto_id int [ref: > productos.id]
+    proveedor_id int [ref: > proveedores.id]
+    sucursal_id int [ref: > sucursales.id]
+    cantidad int
+    fecha_ingreso datetime
+    fecha_vencimiento datetime
+    precio_compra decimal(10,2)
+    precio_venta decimal(10,2)
+}

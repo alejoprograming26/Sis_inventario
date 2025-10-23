@@ -7,6 +7,38 @@
 
 @section('content')
     <p>Admin</p>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <a href="{{ url('admin/sucursales') }}">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url('/img/ubicacion.gif') }}" width="" alt="">
+                    </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 22pt" style=""><b>Sucursales </b></span>
+                    <span class="info-box-number" style="font-size:14pt">
+                        {{ $totalSucursales }} Totales
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <a href="{{ url('admin/categorias') }}">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url('/img/categoria.gif') }}" width="" alt="">
+                    </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 22pt"><b>Categorias </b></span>
+                    <span class="info-box-number" style="font-size:14pt">
+                        {{ $totalCategorias }} Totales
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')
@@ -15,5 +47,7 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+    <script>
+        console.log("Hi, I'm using the Laravel-AdminLTE package!");
+    </script>
 @stop

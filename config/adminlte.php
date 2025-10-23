@@ -110,7 +110,7 @@ return [
     */
 
     'preloader' => [
-        'enabled' => false,
+        'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
@@ -331,6 +331,15 @@ return [
             'active' => ['admin/producto*'],
 
         ],
+         [
+            'text' => 'Proveedores',
+            'url' => 'admin/proveedores',
+            'icon' => 'fas fa-fw fa-truck',
+            'classes' => 'bg-orange text-white',
+            'active' => ['admin/proveedores*'],
+
+        ],
+
 
     ],
 
