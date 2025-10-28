@@ -17,4 +17,9 @@ class Producto extends Model
     public function categoria() {
         return $this->belongsTo(Categoria::class);
     }
+     //Pertenece a muchos lotes
+    public function lotes()
+    {
+        return $this->hasMany(Lote::class);
+    }
 }

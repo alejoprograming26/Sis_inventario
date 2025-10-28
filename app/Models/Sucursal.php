@@ -13,4 +13,10 @@ class Sucursal extends Model
     protected $table = 'sucursals';
 
     protected $fillable = ['nombre', 'direccion', 'telefono', 'estado'];
+
+    // Relación con InventarioSucursalLote
+    public function inventarioSucursalLotes()
+    {
+        return $this->hasMany(InventarioSucursalLote::class);
+    }
 }
