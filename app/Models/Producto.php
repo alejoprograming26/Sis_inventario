@@ -22,4 +22,13 @@ class Producto extends Model
     {
         return $this->hasMany(Lote::class);
     }
+    //Un producto tiene muchos movimientos de inventario
+    public function movimientosInventario()
+    {
+        return $this->hasMany(MovimientoInventario::class);
+    }
+     public function detalleCompras()
+    {
+        return $this->hasMany(DetalleCompra::class);
+    }
 }

@@ -51,3 +51,31 @@ Table Inventario_Sucursal_Lotes{
    lote_id int [ref: > lotes.id]
    cantidad_sucursal int [not null]
 }
+Table Movimientos_inventario{
+   id int [pk, increment]
+   producto_id int [ref: > productos.id]
+   lote_id int [ref: > lotes.id]
+   sucursal_id int [ref: > sucursales.id]
+   tipo_movimiento varchar(50) // e.g., 'entrada', 'salida', 'ajuste'
+   cantidad int
+   fecha_movimiento timestamp [default: `now()`]
+   observaciones text
+}
+Table Compras{
+    id int [pk, increment]
+    proveedor_id int [ref: > proveedores.id]
+    fecha_compra timestamp [default: `now()`]
+    total decimal(10,2)
+    estado varchar()
+    observaciones text
+
+}
+Table Detalle_Compras{
+    id int [pk, increment]
+    compra_id int [ref: > Compras.id]
+    producto_id int [ref: > productos.id]
+    lote_id int [ref: > lotes.id]
+    cantidad int
+    precio_unitario decimal(10,2)
+    subtotal decimal(10,2)
+}
