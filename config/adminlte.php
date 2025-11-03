@@ -339,6 +339,14 @@ return [
             'active' => ['admin/proveedores*'],
 
         ],
+          [
+            'text' => 'Compras',
+            'url' => 'admin/compras',
+            'icon' => 'fas fa-fw fa-shopping-cart',
+            'classes' => 'bg-orange text-white',
+            'active' => ['admin/compras*'],
+
+        ],
 
 
     ],
