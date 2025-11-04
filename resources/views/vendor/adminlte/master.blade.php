@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Ensure absolute paths resolve when app is served from a subfolder (fix /livewire/livewire.js 404) --}}
+    <base href="{{ url('/') }}/">
+
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
 

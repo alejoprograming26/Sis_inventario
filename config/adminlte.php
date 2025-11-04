@@ -557,5 +557,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];
