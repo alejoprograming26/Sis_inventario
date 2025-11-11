@@ -20,7 +20,7 @@ class Compra extends Model
     {
         return $this->belongsTo(Proveedor::class);
     }
-    public function detalleCompras()
+    public function detalles()
     {
         return $this->hasMany(DetalleCompra::class);
     }

@@ -112,8 +112,7 @@
                             <h1 class="card-title"><b>Agregar Productos | Paso 2</b></h1>
                         </div>
                         <div class="card-body" style="display:block;">
-
-                            <livewire:counter />
+                            <livewire:admin.compras.items-compra />
 
                         </div>
                     </div>
@@ -124,8 +123,16 @@
 
         @section('adminlte_css')
             @livewireStyles
+            <style>
+                .select2-container .select2-selection--single {
+                    height: 40px !important;
+                }
+            </style>
         @stop
 
         @section('adminlte_js')
             @livewireScripts
+            <script>
+                $('.select2').select2({});
+            </script>
         @stop
