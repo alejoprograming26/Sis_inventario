@@ -53,7 +53,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label for="nombre">Observaciones</label>
                                 <div class="input-group">
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label for="nombre">Estado</label>
                                 <div class="input-group">
@@ -85,21 +85,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="nombre">Monto</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-money-bill"></i></span>
-                                    </div>
-                                    <input type="text" name="monto" id="monto" class="form-control"
-                                        value="{{ old('monto', $compra->total) }}">
-                                    @error('monto')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -112,27 +98,32 @@
                             <h1 class="card-title"><b>Agregar Productos | Paso 2</b></h1>
                         </div>
                         <div class="card-body" style="display:block;">
-                            <livewire:admin.compras.items-compra />
+                            <livewire:admin.compras.items-compra :compra="$compra" />
 
                         </div>
                     </div>
                 </div>
             </div>
 
+
         @stop
 
         @section('adminlte_css')
-            @livewireStyles
+
             <style>
                 .select2-container .select2-selection--single {
                     height: 40px !important;
                 }
             </style>
+            @livewireStyles
+
         @stop
 
         @section('adminlte_js')
-            @livewireScripts
+
             <script>
                 $('.select2').select2({});
             </script>
+            @livewireScripts
+
         @stop

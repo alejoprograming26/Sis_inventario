@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Compras;
 use App\Models\Compra;
+use App\Models\DetalleCompra;
 use App\Models\Lote;
 use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
@@ -32,11 +33,21 @@ class ItemsCompra extends Component
         $this->compra->load('detalles.producto', 'detalles.lote');
         $this->totalCompra = $this->compra->detalles->sum('subtotal');
         //Reiniciar campos dentro del Formulario
-    $this->reset(['productoId', 'cantidad', 'precioUnitario','precioCompra', 'precioVenta', 'fechaVencimiento', 'codigoLote']);
+        $this->reset(['productoId', 'cantidad', 'precioUnitario','precioCompra', 'precioVenta', 'fechaVencimiento', 'codigoLote']);
         $this->cantidad = 1;
 
     }
+    protected $rules = [
+        'productoId' => 'required',
+        'cantidad' => 'required|integer|min:1',
+        'codigoLote' => 'required',
+        'precioUnitario' => 'required',
+        'fechaVencimiento' => 'required',
+    ];
     public function agregarItems(){
+        // Debug temporal
+        //dd($this->productoId);
+
         $this->validate();
             DB::beginTransaction();
             try {
@@ -64,19 +75,20 @@ class ItemsCompra extends Component
                         'lote_id' => $loteId,
                         'cantidad' => $this->cantidad,
                         'precio_unitario' => $this->precioUnitario,
-                        'subtotal' => $this->cantidad * $this->precioCompra,
+                        'subtotal' => $this->cantidad * $this->precioUnitario,
                     ]);
 
-                    //Recalcular el total de la compra y lo guardamos
-                    // Usar la relación como query para obtener la suma actualizada desde BD
-                    $this->compra->total = $this->compra->detalles()->sum('subtotal');
+                    $this->compra->total = $this->compra->detalles->sum('subtotal');
                     $this->compra->save();
                     DB::commit();
                     $this->cargarDatos();
-
-                }
-
-            catch(Exception $e) {
+                    $this->dispatch(
+                           'mostrar-alert',
+                            icono: 'success',
+                            mensaje: 'Se ha agregado el producto correctamente.'
+                            );
+                }catch(Exception $e) {
+                //dd('error' . $e->getMessage());
                 DB::rollBack();
             }
 
@@ -86,7 +98,28 @@ class ItemsCompra extends Component
     {
         return view('livewire.admin.compras.items-compra');
     }
-    public function prueba(){
-        $this->cantidad = $this->cantidad;
+
+    public function eliminarItem($detalleId){
+        DB::beginTransaction();
+        try {
+            $detalle= DetalleCompra::find($detalleId);
+            $detalle->delete();
+
+            //Recalcular el total de la compra después de eliminar el detalle
+            $this->compra->total = $this->compra->detalles->sum('subtotal');
+            $this->compra->save();
+            DB::commit();
+            $this->cargarDatos();
+            $this->dispatch(
+                'mostrar-alert',
+                icono: 'success',
+                mensaje: 'Se ha eliminado el producto correctamente.'
+            );
+        } catch (Exception $e) {
+
+            DB::rollBack();
+            dd('error al eliminar' . $e->getMessage());
+        }
+
     }
 }
