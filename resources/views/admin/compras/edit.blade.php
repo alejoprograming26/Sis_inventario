@@ -108,7 +108,7 @@
 
         @stop
 
-        @section('adminlte_css')
+        @section('css')
 
             <style>
                 .select2-container .select2-selection--single {
@@ -119,11 +119,6 @@
 
         @stop
 
-        @section('adminlte_js')
-
-            <script>
-                $('.select2').select2({});
-            </script>
+        @section('js')
             @livewireScripts
-
         @stop

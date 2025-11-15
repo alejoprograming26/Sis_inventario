@@ -311,7 +311,7 @@ return [
             'text' => 'Sucursales',
             'url' => 'admin/sucursales',
             'icon' => 'fas fa-fw fa-building',
-            'classes' => 'bg-orange text-white',
+            'classes' => 'bg-green text-white',
             'active' => ['admin/sucursale*'],
 
         ],
@@ -319,7 +319,7 @@ return [
             'text' => 'Categorías',
             'url' => 'admin/categorias',
             'icon' => 'fas fa-fw fa-list',
-            'classes' => 'bg-orange text-white',
+            'classes' => 'bg-green text-white',
             'active' => ['admin/categoria*'],
 
         ],
@@ -327,7 +327,7 @@ return [
             'text' => 'Productos',
             'url' => 'admin/productos',
             'icon' => 'fas fa-fw fa-box-open',
-            'classes' => 'bg-orange text-white',
+            'classes' => 'bg-green text-white',
             'active' => ['admin/producto*'],
 
         ],
@@ -335,7 +335,7 @@ return [
             'text' => 'Proveedores',
             'url' => 'admin/proveedores',
             'icon' => 'fas fa-fw fa-truck',
-            'classes' => 'bg-orange text-white',
+            'classes' => 'bg-green text-white',
             'active' => ['admin/proveedores*'],
 
         ],
@@ -343,7 +343,7 @@ return [
             'text' => 'Compras',
             'url' => 'admin/compras',
             'icon' => 'fas fa-fw fa-shopping-cart',
-            'classes' => 'bg-orange text-white',
+            'classes' => 'bg-green text-white',
             'active' => ['admin/compras*'],
 
         ],

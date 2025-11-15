@@ -8,7 +8,6 @@ use App\Models\Producto;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Exception;
-
 class ItemsCompra extends Component
 {
 
@@ -41,9 +40,11 @@ class ItemsCompra extends Component
         'productoId' => 'required',
         'cantidad' => 'required|integer|min:1',
         'codigoLote' => 'required',
-        'precioUnitario' => 'required',
+        'precioCompra' => 'required',
+        'precioVenta' => 'required',
         'fechaVencimiento' => 'required',
     ];
+
     public function agregarItems(){
         // Debug temporal
         //dd($this->productoId);
@@ -74,8 +75,8 @@ class ItemsCompra extends Component
                         'producto_id' => $producto->id,
                         'lote_id' => $loteId,
                         'cantidad' => $this->cantidad,
-                        'precio_unitario' => $this->precioUnitario,
-                        'subtotal' => $this->cantidad * $this->precioUnitario,
+                        'precio_unitario' => $this->precioCompra,
+                        'subtotal' => $this->cantidad * $this->precioCompra,
                     ]);
 
                     $this->compra->total = $this->compra->detalles->sum('subtotal');
@@ -103,7 +104,11 @@ class ItemsCompra extends Component
         DB::beginTransaction();
         try {
             $detalle= DetalleCompra::find($detalleId);
+            $lote_id = $detalle->lote_id;
+            $lote= Lote::find($lote_id);
+            $lote->delete();
             $detalle->delete();
+
 
             //Recalcular el total de la compra después de eliminar el detalle
             $this->compra->total = $this->compra->detalles->sum('subtotal');
