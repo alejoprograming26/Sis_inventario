@@ -53,7 +53,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="nombre">Observaciones</label>
                                 <div class="input-group">
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="nombre">Estado</label>
                                 <div class="input-group">
@@ -83,6 +83,15 @@
                                 @error('observaciones')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <a href="{{ url('/admin/compras/' . $compra->id . '/enviar-correo') }}"
+                                    class="btn btn-primary" style="margin-top: 32px;">
+                                    <i class="fas fa-envelope"></i> Enviar Orden al Proveedor
+                                </a>
+
                             </div>
                         </div>
 

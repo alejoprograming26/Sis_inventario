@@ -84,7 +84,7 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="fechaVencimiento">Fecha de Vencimiento <b>(*)</b></label>
                         <div class="input-group">
@@ -98,6 +98,14 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div style="height: 33px"></div>
+                    <button type="button" class="btn btn-success btn-block" id="btn-agregar-producto"
+                        wire:click="agregarItems" <i class="fas fa-plus"></i> Agregar
+                    </button>
+
                 </div>
 
 
@@ -151,14 +159,6 @@
         </div>
     </div>
     <div class="row">
-
-        <div class="col-md-1">
-            <div style="height: 33px"></div>
-            <button type="button" class="btn btn-success" id="btn-agregar-producto" wire:click="agregarItems" <i
-                class="fas fa-plus"></i> Agregar
-            </button>
-        </div>
-
 
         <div x-data
             x-on:mostrar-alert.window="Swal.fire({
