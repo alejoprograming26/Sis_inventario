@@ -86,19 +86,12 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="form-group">
-                                <a href="{{ url('/admin/compras/' . $compra->id . '/enviar-correo') }}"
-                                    class="btn btn-primary" style="margin-top: 32px;">
-                                    <i class="fas fa-envelope"></i> Enviar Orden al Proveedor
-                                </a>
 
-                            </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-
 
             <div class="row">
                 <div class="col-md-12">
@@ -113,6 +106,52 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-outline card-primary">
+                        <div class="card-header">
+                            <h1 class="card-title"><b>Finalizar Compra | Paso 3</b></h1>
+                        </div>
+                        <div class="card-body" style="display:block;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="nombre">Proveedores <b>(*)</b></label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                            </div>
+                                            <select name="proveedor_id" id="proveedor_id" class="form-control" required>
+                                                <option value="">Seleccione un proveedor</option>
+                                                @foreach ($proveedores as $proveedor)
+                                                    <option value="{{ $proveedor->id }}"
+                                                        {{ old('proveedor_id') == $proveedor->id ? 'selected' : '' }}>
+                                                        {{ $proveedor->nombre . ' | ' . $proveedor->empresa }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('proveedor_id')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{{ url('/admin/compras/' . $compra->id . '/enviar-correo') }}"
+                                            class="btn btn-primary" style="margin-top: 32px;">
+                                            <i class="fas fa-envelope"></i> Enviar Orden al Proveedor
+                                        </a>
+                                        <a href="{{ url('/admin/compras/' . $compra->id . '/finalizar-compra') }}"
+                                            class="btn btn-success" style="margin-top: 32px;">
+                                            <i class="fas fa-check"></i> Finalizar Compra
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
 
         @stop

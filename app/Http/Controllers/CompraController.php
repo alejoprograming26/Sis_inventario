@@ -60,8 +60,21 @@ class CompraController extends Controller
     public function enviarCorreo(Compra $compra)
     {
         $compra->load('detalles.producto', 'proveedor');
+        $compra->estado = 'Enviado';
+        $compra->save();
         $proveedorEmail = $compra->proveedor->email;
         Mail::to($proveedorEmail)->send(new CompraProveedorMail($compra));
         return redirect()->back()->with('mensaje', 'Correo enviado al proveedor exitosamente.')->with('icono', 'success');
     }
+    public function finalizarCompra(Compra $compra)
+    {
+        $compra->load('detalles.producto', 'proveedor');
+        $detalles = $compra->detalles();
+        if($detalles->doesntExist()){
+           return redirect()->back()->with('mensaje', 'No se puede finalizar la Compra Sin Productos.')->with('icono', 'error');
+        }
+
+
+    }
 }
+
