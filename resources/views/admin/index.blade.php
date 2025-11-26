@@ -38,6 +38,53 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <a href="{{ url('admin/productos') }}">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url('/img/carrito.gif') }}" width="" alt="">
+                    </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 22pt"><b>Productos </b></span>
+                    <span class="info-box-number" style="font-size:14pt">
+                        {{ $totalProductos }} Totales
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <a href="{{ url('admin/proveedores') }}">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url('/img/comentario.gif') }}" width="" alt="">
+                    </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 22pt"><b>Proveedores </b></span>
+                    <span class="info-box-number" style="font-size:14pt">
+                        {{ $totalProveedores }} Totales
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+                <a href="{{ url('admin/compras') }}">
+                    <span class="info-box-icon bg-info">
+                        <img src="{{ url('/img/bolsa.gif') }}" width="" alt="">
+                    </span>
+                </a>
+                <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 22pt"><b>Compras </b></span>
+                    <span class="info-box-number" style="font-size:14pt">
+                        {{ $totalCompras }} Totales
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 @stop
 

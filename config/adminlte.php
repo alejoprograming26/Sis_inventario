@@ -347,6 +347,13 @@ return [
             'active' => ['admin/compras*'],
 
         ],
+          [
+            'text' => 'Lotes',
+            'url' => 'admin/lotes',
+            'icon' => 'fas fa-fw fa-boxes',
+            'classes' => 'bg-green text-white',
+            'active' => ['admin/lotes*'],
+        ],
 
 
     ],

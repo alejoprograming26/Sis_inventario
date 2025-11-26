@@ -9,6 +9,10 @@ use App\Models\Sucursal;
 use Illuminate\Http\Request;
 use App\Mail\CompraProveedorMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use App\Models\InventarioSucursalLote;
+use App\Models\MovimientoInventario;
+use Exception;
 
 class CompraController extends Controller
 {
@@ -66,13 +70,58 @@ class CompraController extends Controller
         Mail::to($proveedorEmail)->send(new CompraProveedorMail($compra));
         return redirect()->back()->with('mensaje', 'Correo enviado al proveedor exitosamente.')->with('icono', 'success');
     }
-    public function finalizarCompra(Compra $compra)
+    public function finalizarCompra(Request $request, Compra $compra)
     {
         $compra->load('detalles.producto', 'proveedor');
-        $detalles = $compra->detalles();
-        if($detalles->doesntExist()){
+
+        if($compra->detalles->isEmpty()){
            return redirect()->back()->with('mensaje', 'No se puede finalizar la Compra Sin Productos.')->with('icono', 'error');
         }
+        $request->validate([
+            'sucursal_id' => 'required',
+        ]);
+            DB::beginTransaction();
+            try {
+                foreach ($compra->detalles as $detalle) {
+                   $lote = $detalle->lote;
+                   $producto= $detalle->producto;
+                   //actualizar la cantidad del lote
+                     $lote->cantidad_actual= $detalle->cantidad_actual+ $detalle->cantidad;
+                     $lote->save();
+
+                    //actualizar el registro de inventario sucursal_lote
+                    $inventarioLote= InventarioSucursalLote::firstOrCreate([
+
+                        'lote_id' => $lote->id,
+                        'sucursal_id' => $request->sucursal_id,
+                        'cantidad_sucursal' => 0,
+
+                    ]);
+                    $inventarioLote->cantidad_sucursal = $inventarioLote->cantidad_sucursal + $detalle->cantidad;
+                    $inventarioLote->save();
+
+                    //Registrar movimiento en la tabla movimientos_inventario (si existe)
+                    $movimientoInventario = MovimientoInventario::create([
+                        'producto_id' => $producto->id,
+                        'lote_id' => $lote->id,
+                        'sucursal_id' => $request->sucursal_id,
+                        'tipo_movimiento' => 'Entrada',
+                        'cantidad' => $detalle->cantidad,
+                        'fecha' => now(),
+                    ]);
+
+                }
+                $compra->estado = 'Finalizada';
+                $compra->save();
+                DB::commit();
+                return redirect()->route('admin.compras.index')->with('mensaje', 'Compra finalizada Realizada exitosamente.')->with('icono', 'success');
+
+                }catch(Exception $e) {
+
+                DB::rollBack();
+                dd('error al finalizar la compra: ' . $e->getMessage());
+            }
+
 
 
     }

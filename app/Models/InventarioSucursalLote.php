@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InventarioSucursalLote extends Model
 {
-    protected $table = 'inventario_sucursal_lote';
+    protected $table = 'inventario_sucursal_lotes';
     protected $fillable = [
         'sucursal_id',
         'lote_id',

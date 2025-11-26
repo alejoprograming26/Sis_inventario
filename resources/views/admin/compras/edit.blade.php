@@ -113,40 +113,45 @@
                             <h1 class="card-title"><b>Finalizar Compra | Paso 3</b></h1>
                         </div>
                         <div class="card-body" style="display:block;">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="nombre">Proveedores <b>(*)</b></label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
+
+                            <form action="{{ route('compras.finalizarCompra', $compra) }}" method="POST">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="nombre">Sucursal <b>(*)</b></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-building"></i></span>
+                                                </div>
+                                                <select name="sucursal_id" id="sucursal_id" class="form-control" required>
+                                                    <option value="">Seleccione una Sucursal</option>
+                                                    @foreach ($sucursales as $sucursal)
+                                                        <option value="{{ $sucursal->id }}"
+                                                            {{ old('sucursal_id') == $sucursal->id ? 'selected' : '' }}>
+                                                            {{ $sucursal->nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
-                                            <select name="proveedor_id" id="proveedor_id" class="form-control" required>
-                                                <option value="">Seleccione un proveedor</option>
-                                                @foreach ($proveedores as $proveedor)
-                                                    <option value="{{ $proveedor->id }}"
-                                                        {{ old('proveedor_id') == $proveedor->id ? 'selected' : '' }}>
-                                                        {{ $proveedor->nombre . ' | ' . $proveedor->empresa }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            @error('sucursal_id')
+                                                <span class="text-danger">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        @error('proveedor_id')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <a href="{{ url('/admin/compras/' . $compra->id . '/enviar-correo') }}"
-                                            class="btn btn-primary" style="margin-top: 32px;">
-                                            <i class="fas fa-envelope"></i> Enviar Orden al Proveedor
-                                        </a>
-                                        <a href="{{ url('/admin/compras/' . $compra->id . '/finalizar-compra') }}"
-                                            class="btn btn-success" style="margin-top: 32px;">
-                                            <i class="fas fa-check"></i> Finalizar Compra
-                                        </a>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <a href="{{ url('/admin/compras/' . $compra->id . '/enviar-correo') }}"
+                                                class="btn btn-primary" style="margin-top: 32px;">
+                                                <i class="fas fa-envelope"></i> Enviar Orden al Proveedor
+                                            </a>
+                                            <button type="submit" class="btn btn-success" style="margin-top: 32px;">
+                                                <i class="fas fa-check"></i> Finalizar Compra
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
