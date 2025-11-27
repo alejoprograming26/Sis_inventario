@@ -6,6 +6,8 @@ use App\Models\Categoria;
 use App\Models\Producto;
 use App\Models\Proveedor;
 use App\Models\Compra;
+use App\Models\Lote;
+use Carbon\Carbon;
 class AdminController extends Controller
 {
     public function index()
@@ -15,7 +17,8 @@ class AdminController extends Controller
         $totalProductos = Producto::count();
         $totalProveedores = Proveedor::count();
         $totalCompras = Compra::count();
+        $totalLotesVencidos = Lote::where('fecha_vencimiento', '<', Carbon::now())->count();
 
-        return view('admin.index', compact('totalSucursales', 'totalCategorias', 'totalProductos', 'totalProveedores', 'totalCompras'));
+        return view('admin.index', compact('totalSucursales', 'totalCategorias', 'totalProductos', 'totalProveedores', 'totalCompras', 'totalLotesVencidos'));
     }
 }
