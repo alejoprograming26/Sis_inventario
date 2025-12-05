@@ -347,13 +347,27 @@ return [
             'active' => ['admin/compras*'],
 
         ],
-          [
-            'text' => 'Lotes',
-            'url' => 'admin/lotes',
+        [
+            'text' => 'Inventario',
             'icon' => 'fas fa-fw fa-boxes',
             'classes' => 'bg-green text-white',
-            'active' => ['admin/lotes*'],
+            'active' => ['admin/inventarios*'],
+            'submenu' => [
+                    [
+                    'text' => 'Lotes',
+                    'url' => 'admin/lotes',
+
+                    ],
+                [
+                    'text' => 'Sucursales por Lotes',
+                    'url'  => 'admin/inventario/sucursales_por_lotes',
+
+                ],
+            ],
+
         ],
+
+
 
 
     ],

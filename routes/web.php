@@ -56,3 +56,7 @@ Route::post('/admin/compras/{compra}/finalizar-compra', [App\Http\Controllers\Co
 
 //Lotes
 Route::get('/admin/lotes', [App\Http\Controllers\LoteController::class, 'index'])->name('admin.lotes.index')->middleware('auth');
+
+//Inventario lotes
+Route::get('/admin/inventario/sucursales_por_lotes', [App\Http\Controllers\InventarioSucursalLoteController::class, 'index'])->name('admin.sucursales_por_lotes.index')->middleware('auth');
+Route::get('/admin/inventario/inventario_por_sucursal/sucursal/{id}', [App\Http\Controllers\InventarioSucursalLoteController::class, 'mostrar_inventario_por_sucursal'])->name('mostrar_inventario_por_sucursal.show')->middleware('auth');
