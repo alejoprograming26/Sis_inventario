@@ -363,6 +363,11 @@ return [
                     'url'  => 'admin/inventario/sucursales_por_lotes',
 
                 ],
+                [
+                    'text' => 'Historial de Movimientos',
+                    'url'  => 'admin/inventario/movimientos',
+
+                ],
             ],
 
         ],
