@@ -125,5 +125,19 @@ class CompraController extends Controller
 
 
     }
+    public function show($id)
+    {
+        $compra = Compra::findOrFail($id);
+        $compra->load('detalles.producto', 'proveedor');
+        $movimientoEntrada= MovimientoInventario::whereHas('lote', function ($query) use ($compra) {
+            $query->whereIn('id', $compra->detalles->pluck('lote_id'));
+        })->where('tipo_movimiento', 'Entrada')->first();
+        $sucursal_destino= null;
+        if($movimientoEntrada){
+            $sucursal_destino= Sucursal::find($movimientoEntrada->sucursal_id);
+        }
+        return view('admin.compras.show', compact('compra', 'movimientoEntrada', 'sucursal_destino'));
+
+    }
 }
 
