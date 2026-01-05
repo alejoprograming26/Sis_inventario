@@ -14,7 +14,46 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div class="card card-outline card-orange">
+            <div class="card card-outline card-success">
+                <div class="card-header">
+                    <h1 class="card-title"><b>Filtrado de Datos</b></h1>
+
+                </div>
+                <div class="card-body" style="display: block;">
+                    <form action="{{ url('admin/lotes') }}" method="GET">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="fecha_desde">Desde:</label>
+                                    <input type="date" id="fecha_desde" name="fecha_desde" class="form-control"
+                                        placeholder="Fecha Desde">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="fecha_hasta">Hasta:</label>
+                                    <input type="date" id="fecha_hasta" name="fecha_hasta" class="form-control"
+                                        placeholder="Fecha Hasta">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success" style="margin-top: 32px"><i
+                                            class="fas fa-filter"></i>
+                                        Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-outline card-success">
                 <div class="card-header">
                     <h1 class="card-title"><b>Lotes Registrados</b></h1>
 
@@ -29,6 +68,7 @@
                                 <th>Proveedor</th>
                                 <th>Fecha Entrada</th>
                                 <th>Fecha Vencimiento</th>
+                                <th>Dias para Vencer</th>
                                 <th>Cantidad Actual</th>
                                 <th>Estado</th>
                             </tr>
@@ -42,10 +82,13 @@
                                     <td>{{ $lote->proveedor->nombre }}</td>
                                     <td>{{ $lote->fecha_entrada }}</td>
                                     <td>{{ $lote->fecha_vencimiento }}</td>
+                                    <td>{{ $lote->days_to_expire }} Dias</td>
                                     <td>{{ $lote->cantidad_actual }}</td>
                                     <td>
                                         @if ($lote->is_expired)
                                             <span class="badge badge-danger">Vencido</span>
+                                        @elseif ($lote->days_to_expire <= 15)
+                                            <span class="badge badge-warning">Por Caducar</span>
                                         @else
                                             <span class="badge badge-success">Vigente</span>
                                         @endif

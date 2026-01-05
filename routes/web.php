@@ -53,7 +53,7 @@ Route::post('/admin/compras/create', [App\Http\Controllers\CompraController::cla
 Route::get('/admin/compras/{id}/edit', [App\Http\Controllers\CompraController::class, 'edit'])->name('admin.compras.edit')->middleware('auth');
 Route::get('/admin/compras/{compra}/enviar-correo', [App\Http\Controllers\CompraController::class, 'enviarCorreo'])->name('compras.enviarCorreo')->middleware('auth');
 Route::post('/admin/compras/{compra}/finalizar-compra', [App\Http\Controllers\CompraController::class, 'finalizarCompra'])->name('compras.finalizarCompra')->middleware('auth');
-
+Route::delete('/admin/compras/{id}', [App\Http\Controllers\CompraController::class, 'destroy'])->name('admin.compras.destroy')->middleware('auth');
 
 //Lotes
 Route::get('/admin/lotes', [App\Http\Controllers\LoteController::class, 'index'])->name('admin.lotes.index')->middleware('auth');

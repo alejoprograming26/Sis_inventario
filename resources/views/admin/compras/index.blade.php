@@ -50,18 +50,21 @@
                                                 class="btn btn-info">
                                                 <i class="fas fa-eye"></i> Ver
                                             </a>
-                                            <a href="{{ url('admin/compras/' . $compra->id . '/edit') }}" type="button"
-                                                class="btn btn-success"><i class="fas fa-edit"></i>
-                                                Editar</a>
-                                            <form action="{{ url('/admin/compras/' . $compra->id) }}"
-                                                id="miFormulario{{ $compra->id }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="event.preventDefault(); eliminarFormacion('{{ $compra->id }}');">
-                                                    <i class="fas fa-trash"></i> Eliminar
-                                                </button>
-                                            </form>
+                                            @if ($compra->estado != 'Finalizada')
+                                                <a href="{{ url('admin/compras/' . $compra->id . '/edit') }}" type="button"
+                                                    class="btn btn-success"><i class="fas fa-edit"></i>
+                                                    Editar</a>
+                                            @endif
+                                            @if ($compra->estado != 'Finalizada')
+                                                <form action="{{ url('/admin/compras/' . $compra->id) }}"
+                                                    id="miFormulario{{ $compra->id }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="event.preventDefault(); eliminarFormacion('{{ $compra->id }}');">
+                                                        <i class="fas fa-trash"></i> Eliminar
+                                                    </button>
+                                                </form>
                                         </div>
 
                                         <script>
@@ -82,8 +85,9 @@
                                                 });
                                             }
                                         </script>
-                                    </td>
-                                </tr>
+                            @endif
+                            </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
