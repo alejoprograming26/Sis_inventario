@@ -2,11 +2,12 @@
 
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Bienvenido:<b> {{ Auth::user()->name }}</b></h1>
+    <br>
 @stop
 
 @section('content')
-    <p>Admin</p>
+
     <div class="row">
         <div class="col-md-3 col-sm-6 col-12">
             <div class="info-box">
